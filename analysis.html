@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #243b55;
+      color: #fff;
+      text-align: center;
+      padding-top: 50px;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    
+
+    
+
+    input, select {
+      padding: 12px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+      width: 260px;
+      box-shadow: 0 0 5px rgba(255,255,255,0.2);
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+      outline: none;
+    }
+
+    #result {
+      background-color: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      text-align: left;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      white-space: pre-line;
+    }
+
+    .btn {
+      outline: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #111d2a;
+      min-width: 200px;
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+      padding: 14px 22px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      opacity: .95;
+      transform: translateY(-2px);
+    }
+
+    .btn-logout {
+      background: crimson;
+    }
+
+   
+    footer {
+      margin-top: 50px;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+
+    .hero-image img {
+      width: 450px;
+      height: 350px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="window.location.href='history.html'" style="position: absolute; top: 20px; right: 20px;">
+    🕘 History
+  </button>
+
+  <h1 data-aos="fade-down" style="font-size: 2.5em; font-weight: bold; margin-bottom: 20px;">
+    Welcome to Market & Location Analytics
+  </h1>
+
+  <p data-aos="fade-up" style="font-size: 1.2em; margin-bottom: 40px;">
+    Your smart guide to choosing the best location to start your business!
+  </p>
+
+  <div class="hero-image">
+    <img src="https://cdni.iconscout.com/illustration/premium/thumb/man-looking-analysis-report-8603380-6806472.png" />
+  </div>
+
+  <br><br>
+
+  <input type="number" id="budget" placeholder="Budget (OMR)" data-aos="fade-up"/>
+  <select id="businessType" data-aos="fade-up">
+    <option value="">Select Business Type</option>
+    <option value="restaurant">Restaurant</option>
+    <option value="salon">Salon</option>
+    <option value="retail">Retail</option>
+    <option value="pharmacy">Pharmacy</option>
+    <option value="libary">Library</option>
+    <option value="supermarket">Supermarket</option>
+    <option value="coffee shop">Coffee Shop</option>
+  </select>
+
+  <select id="city" data-aos="fade-up">
+    <option value="">Select Governorate</option>
+    <option value="Muscat">Muscat</option>
+    <option value="Dhofar">Dhofar</option>
+    <option value="Musandam">Musandam</option>
+    <option value="Al Buraimi">Al Buraimi</option>
+    <option value="Al Dakhiliyah">Al Dakhiliyah</option>
+    <option value="Al Dhahirah">Al Dhahirah</option>
+    <option value="North & South Al Sharqiyah">North & South Al Sharqiyah</option>
+    <option value="North & South Al Batinah">North & South Al Batinah</option>
+    <option value="Al Wusta">Al Wusta</option>
+  </select>
+
+  <br>
+
+  <button class="btn" onclick="startAnalysis()" data-aos="fade-up"><i class="fas fa-chart-bar"></i>&nbsp; Start Analysis</button>
+  <button class="btn btn-logout" onclick="logout()" data-aos="fade-up"><i class="fas fa-sign-out-alt"></i>&nbsp; Logout</button>
+
+  <div id="result" data-aos="fade-up"></div>
+
+  <button class="btn" onclick="downloadPDF()" id="downloadBtn" style="display:none;" data-aos="fade-up">
+    <i class="fas fa-file-pdf"></i>&nbsp; Download Report as PDF
+  </button>
+
+  <div id="budgetLevelDisplay" style="margin-top: 20px; font-size: 1.2em; font-weight: bold;"></div>
+
+  <footer>
+    © 2025 Market & Location Analytics | All rights reserved
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <script>
+    const email = localStorage.getItem("userEmail");
+    if (!email) {
+      window.location.href = "login.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("userEmail");
+      window.location.href = "login.html";
+    }
+
+    async function startAnalysis() {
+      const budget = parseInt(document.getElementById("budget").value);
+      const type = document.getElementById("businessType").value;
+      const city = document.getElementById("city").value;
+
+      if (!budget || !type || !city) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      let budgetLevelText = "";
+      let color = "";
+      if (budget < 1000) {
+        budgetLevelText = "Your budget is LOW";
+        color = "#ff6666";
+      } else if (budget < 3000) {
+        budgetLevelText = "Your budget is MEDIUM";
+        color = "#ffd966";
+      } else {
+        budgetLevelText = "Your budget is HIGH";
+        color = "#66ff99";
+      }
+
+      document.getElementById("budgetLevelDisplay").innerText = budgetLevelText;
+      document.getElementById("budgetLevelDisplay").style.color = color;
+
+      try {
+        const res = await fetch("http://localhost:5000/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ budget, businessType: type, city, email })
+        });
+
+        const data = await res.json();
+        if (data.analysis) {
+          const a = data.analysis;
+          const content = `
+Business Type: ${a.business_type}
+City: ${a.city}
+Budget Level: ${a.budget_level}
+Best Area: ${a.best_area}
+Competition Level: ${a.competition_level}
+Estimated Rent: ${a.rent_estimate}
+Suggestions: ${a.suggestions}
+
+--- Final Report ---
+${a.final_report}
+          `;
+
+          const resultDiv = document.getElementById("result");
+          resultDiv.innerText = content;
+          document.getElementById("downloadBtn").style.display = "inline-block";
+
+          if (a.best_area && a.city) {
+            const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(a.best_area + ", " + a.city)}&output=embed`;
+
+            const iframe = document.createElement("iframe");
+            iframe.src = mapUrl;
+            iframe.width = "600";
+            iframe.height = "400";
+            iframe.style.border = "0";
+            iframe.allowFullscreen = true;
+            iframe.loading = "lazy";
+            iframe.referrerPolicy = "no-referrer-when-downgrade";
+
+            resultDiv.appendChild(document.createElement("br"));
+            resultDiv.appendChild(iframe);
+          }
+
+        } else {
+          document.getElementById("result").innerText = data.message || "No analysis found.";
+        }
+      } catch (error) {
+        document.getElementById("result").innerText = "Unable to connect to server. Make sure backend is running.";
+      }
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const reportText = document.getElementById("result").innerText;
+
+      const lines = doc.splitTextToSize(reportText, 180);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+      doc.text(lines, 10, 20);
+
+      doc.save("Business_Analysis_Report.pdf");
+    }
+  </script>
+</body>
+</html>

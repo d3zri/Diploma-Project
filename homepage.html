@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Market & Location Analytics</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 10;
+    }
+    header .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      color: #fff;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #60efff;
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 140px 40px 100px 40px;
+      max-width: 1200px;
+      width: 100%;
+      gap: 40px;
+    }
+    .hero-content {
+      max-width: 600px;
+    }
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #60efff;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 35px;
+      color: #ddd;
+      line-height: 1.5;
+    }
+    .hero-content .btns {
+      display: flex;
+      gap: 20px;
+    }
+    .btn {
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: #60efff;
+      color: #0b2e3f;
+    }
+    .btn-primary:hover {
+      background: #3ecde3;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid #60efff;
+      color: #60efff;
+    }
+    .btn-secondary:hover {
+      background: #60efff;
+      color: #0b2e3f;
+    }
+    .hero-image {
+      flex: 1;
+      max-width: 500px;
+    }
+    .hero-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(96, 239, 255, 0.5);
+    }
+    .features {
+      max-width: 1200px;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 30px;
+      color: #c7d2da;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    .feature:hover {
+      background: rgba(96, 239, 255, 0.15);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #60efff;
+      margin-bottom: 20px;
+    }
+    .feature h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #60efff;
+    }
+    .feature p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #d4e8f2;
+    }
+    .visitor-counter {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #ffffff;
+      margin-top: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .visitor-counter .count {
+      font-weight: 700;
+      color: #60efff;
+      margin-left: 6px;
+      font-size: 2.2rem;
+    }
+    footer {
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: auto;
+    }
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 160px;
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+      .hero-image {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous">
+</script>
+</head>
+<body>
+<header>
+<div class="logo">Market & Location Analytics</div>
+<nav>
+<ul>
+
+<li><a href="homepage.html">Home</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li>
+<a href="Admin_Login.html" title="Only For Admin">Dashboard
+
+</a>
+</li>
+<li>
+<a href="login.html" title="Login / Signup">
+<i class="fas fa-user"></i>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<section class="hero">
+<div class="hero-content">
+<h1>Choose the Best Location for Your Business</h1>
+<p>Our platform uses data-driven insights to help entrepreneurs find the ideal location and market fit for their businesses in Oman.</p>
+<div class="btns">
+<a href="login.html" class="btn btn-primary">Start Analysis</a>
+<a href="explore.html" class="btn btn-secondary">Explore Features</a>
+</div>
+</div>
+<div class="hero-image">
+<img src="https://vincular.in/wp-content/uploads/2023/07/Background-Regulatory-Overview_Artboard-1.png" alt="Hero Image" />
+</div>
+</section>
+<section class="features">
+<div class="feature">
+<div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+<h3>Smart Location Suggestions</h3>
+<p>Find the most strategic areas based on budget, competition, and business type.</p>
+</div>
+<div class="feature">
+<div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+<h3>Market Analytics</h3>
+<p>Get visual and statistical insights to support your business decision.</p>
+</div>
+<div class="feature">
+<div class="feature-icon"><i class="fas fa-users"></i></div>
+<h3>Competitor Insights</h3>
+<p>Understand your competitors and how to stand out in the market.</p>
+</div>
+<div class="visitor-counter">
+      Total Visitors: <span class="count">0</span>
+</div>
+</section>
+<footer>
+&copy; 2025 Market & Location Analytics. All rights reserved.
+</footer>
+<script>
+    const counterElement = document.querySelector(".visitor-counter .count");
+ let count = localStorage.getItem("visitorCount");
+ if (!count) {
+  
+   count = 1;
+ } else {
+
+   count = parseInt(count) + 1;
+ }
+ 
+ localStorage.setItem("visitorCount", count);
+
+ counterElement.textContent = count; 
+
+</script>
+</body>
+</html>
